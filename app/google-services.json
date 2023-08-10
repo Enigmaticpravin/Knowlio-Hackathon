@@ -1,0 +1,101 @@
+{
+  "project_info": {
+    "project_number": "1001375974198",
+    "firebase_url": "https://knowlio-b734a-default-rtdb.firebaseio.com",
+    "project_id": "knowlio-b734a",
+    "storage_bucket": "knowlio-b734a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001375974198:android:8a7e10eef7547c9bb02997",
+        "android_client_info": {
+          "package_name": "com.example.knowlio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1001375974198-6nvar58uvo3qgg17o8hia6vh7etemmtd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.knowlio",
+            "certificate_hash": "034281d910f8d98457449d3272fb2e34f7072ac2"
+          }
+        },
+        {
+          "client_id": "1001375974198-9jo0pc18lntkbchfis8rvn9fa62toja2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.knowlio",
+            "certificate_hash": "cb45d7b9fbc38dfd4b5a118517ed7de1d55099fb"
+          }
+        },
+        {
+          "client_id": "1001375974198-7p800fb84jpdne2qd10v7q5nhq56vj10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgs6ALDx05zPNIOdk3RgPpwLEUapixSQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1001375974198-7p800fb84jpdne2qd10v7q5nhq56vj10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001375974198:android:d10b670778b1098db02997",
+        "android_client_info": {
+          "package_name": "com.opion.knowlio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1001375974198-gpibk238ngij3l2f11h8nhe3huas6i77.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.opion.knowlio",
+            "certificate_hash": "cb45d7b9fbc38dfd4b5a118517ed7de1d55099fb"
+          }
+        },
+        {
+          "client_id": "1001375974198-o64i6haf80besr6ongfv8g443ci53g6i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.opion.knowlio",
+            "certificate_hash": "034281d910f8d98457449d3272fb2e34f7072ac2"
+          }
+        },
+        {
+          "client_id": "1001375974198-7p800fb84jpdne2qd10v7q5nhq56vj10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgs6ALDx05zPNIOdk3RgPpwLEUapixSQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1001375974198-7p800fb84jpdne2qd10v7q5nhq56vj10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
