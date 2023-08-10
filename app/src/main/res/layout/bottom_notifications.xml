@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/dialogContainer"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/round_bg"
+        android:backgroundTint="@color/background"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/replyTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:drawableStart="@drawable/round_notifications_24"
+            android:drawablePadding="@dimen/_7sdp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="Notifications" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/round_bg"
+            android:drawableEnd="@drawable/round_close_24"
+            android:drawableTint="@color/primaryRed"
+            android:gravity="center"
+            android:id="@+id/closeBtn"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_2sdp"
+            android:text="Close"
+            android:textColor="@color/primaryRed" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_below="@id/closeBtn"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:id="@+id/notificationRv"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/round_bg"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/emptyLay"
+            android:layout_height="wrap_content">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="@dimen/_170sdp"
+                android:src="@drawable/notificationsnotfound"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/bellIcon"
+                android:layout_height="@dimen/_170sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notifications not found!"
+                android:textSize="@dimen/_12sdp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/bellIcon"/>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/dialogContainer"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/round_bg"
+        android:backgroundTint="@color/background"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/replyTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:drawableStart="@drawable/round_reply_24"
+            android:drawablePadding="@dimen/_7sdp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="Responding to Pravin Gupta's query" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/round_bg"
+            android:drawableEnd="@drawable/round_close_24"
+            android:drawableTint="@color/primaryRed"
+            android:gravity="center"
+            android:id="@+id/closeBtn"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_2sdp"
+            android:text="Close"
+            android:textColor="@color/primaryRed" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/replyTxt"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/lato"
+            android:gravity="top"
+            android:hint="Respond to the idea or problem with a practical and precise approach"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:inputType="textCapSentences|textMultiLine|textLongMessage"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/replyEt"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_above="@id/publishBtn"
+            android:background="@drawable/round_bg" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Publish"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:id="@+id/publishBtn"
+            android:textColor="@color/white"
+            android:background="@drawable/red_gradient"
+            android:padding="@dimen/_10sdp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

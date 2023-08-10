@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -46,6 +47,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.opion.knowlio.Adapter.NotificationAdapter;
+import com.opion.knowlio.Adapter.PostAdapter;
+import com.opion.knowlio.Class.Notifications;
+import com.opion.knowlio.Class.Post;
 import com.opion.knowlio.Class.Users;
 import com.opion.knowlio.databinding.ActivityMainBinding;
 
@@ -68,11 +73,14 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
-
     private ActivityMainBinding binding;
     private TextView username,username1;
+    PostAdapter postAdapter;
     private boolean isSearchVisible = false;
+    NotificationAdapter notificationAdapter;
+    List<Notifications> notificationsList = new ArrayList<>();
     CircleImageView profilePic;
+    List<Post> postList = new ArrayList<Post>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +93,38 @@ public class MainActivity extends AppCompatActivity {
         username1 = (TextView) findViewById(R.id.username1);
         profilePic = findViewById(R.id.profilePic);
 
+        binding.postRv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        postAdapter = new PostAdapter(MainActivity.this, postList);
+        binding.postRv.setHasFixedSize(true);
+        binding.postRv.setItemViewCacheSize(5);
+        binding.postRv.setItemAnimator(new DefaultItemAnimator());
+        binding.postRv.setAdapter(postAdapter);
+
         binding.hamburgerBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Coming soon...", Toast.LENGTH_SHORT).show();
+                Dialog dialog = new Dialog(view.getRootView().getContext(), R.style.DialogCorner);
+                dialog.setContentView(R.layout.logoutdialog);
+                dialog.show();
+
+                TextView cancel = (TextView) dialog.findViewById(R.id.noBtn);
+                TextView join = (TextView) dialog.findViewById(R.id.yesBtn);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                join.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
             }
         });
 
@@ -112,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 binding.medication.setTextColor(Color.BLACK);
                 binding.agriculture.setTextColor(Color.BLACK);
                 binding.finance.setTextColor(Color.BLACK);
+                fetchPosts();
             }
         });
 
@@ -134,6 +170,64 @@ public class MainActivity extends AppCompatActivity {
                 binding.medication.setTextColor(Color.BLACK);
                 binding.agriculture.setTextColor(Color.BLACK);
                 binding.finance.setTextColor(Color.BLACK);
+                fetchCategory("Religion");
+            }
+        });
+
+        binding.notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getRootView().getContext(), R.style.SheetDialog);
+                BottomSheetBehavior<View> bottomSheetBehavior;
+                View bottomsheetview = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.bottom_notifications, null);
+                bottomSheetDialog.setContentView(bottomsheetview);
+                bottomSheetBehavior = BottomSheetBehavior.from((View) bottomsheetview.getParent());
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                RelativeLayout linearLayout = bottomsheetview.findViewById(R.id.dialogContainer);
+                assert linearLayout != null;
+                linearLayout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
+                bottomSheetDialog.show();
+                RecyclerView recyclerView = (RecyclerView) bottomsheetview.findViewById(R.id.notificationRv);
+                TextView cancelBTn = (TextView) bottomsheetview.findViewById(R.id.closeBtn);
+                RelativeLayout emptyLAyout = (RelativeLayout) bottomsheetview.findViewById(R.id.emptyLay);
+                cancelBTn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                notificationAdapter = new NotificationAdapter(MainActivity.this, notificationsList);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setItemViewCacheSize(5);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.setAdapter(notificationAdapter);
+                DatabaseReference reference9 = FirebaseDatabase.getInstance().getReference("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                reference9.keepSynced(true);
+                reference9.addValueEventListener(new ValueEventListener() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        notificationsList.clear();
+                        int i = 0;
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                            Notifications post = snapshot.getValue(Notifications.class);
+                            notificationsList.add(0,post);
+                            i++;
+                        }
+
+                        notificationAdapter.notifyDataSetChanged();
+                        if (i == 0){
+                         emptyLAyout.setVisibility(View.VISIBLE);
+                        } else {
+                            emptyLAyout.setVisibility(View.GONE);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -150,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     showLayout();
                 }
+                searchPost();
             }
 
             @Override
@@ -163,7 +258,6 @@ public class MainActivity extends AppCompatActivity {
                 if (!isSearchVisible) {
                     animateTransition();
                 } else {
-                    // Handle the reverse animation if needed
                     animateReverseTransition();
                 }
             }
@@ -188,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
                 binding.medication.setTextColor(Color.BLACK);
                 binding.agriculture.setTextColor(Color.BLACK);
                 binding.finance.setTextColor(Color.BLACK);
+                fetchCategory("Politics");
             }
         });
 
@@ -210,6 +305,7 @@ public class MainActivity extends AppCompatActivity {
                 binding.medication.setTextColor(Color.BLACK);
                 binding.agriculture.setTextColor(Color.BLACK);
                 binding.finance.setTextColor(Color.BLACK);
+                fetchCategory("Technology");
             }
         });
 
@@ -232,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
                 binding.medication.setTextColor(Color.BLACK);
                 binding.agriculture.setTextColor(Color.BLACK);
                 binding.finance.setTextColor(Color.BLACK);
+                fetchCategory("Education");
             }
         });
 
@@ -254,6 +351,7 @@ public class MainActivity extends AppCompatActivity {
                 binding.all.setTextColor(Color.BLACK);
                 binding.agriculture.setTextColor(Color.BLACK);
                 binding.finance.setTextColor(Color.BLACK);
+                fetchCategory("Medication");
             }
         });
 
@@ -276,6 +374,7 @@ public class MainActivity extends AppCompatActivity {
                 binding.medication.setTextColor(Color.BLACK);
                 binding.all.setTextColor(Color.BLACK);
                 binding.finance.setTextColor(Color.BLACK);
+                fetchCategory("Agriculture");
             }
         });
 
@@ -298,12 +397,14 @@ public class MainActivity extends AppCompatActivity {
                 binding.medication.setTextColor(Color.BLACK);
                 binding.agriculture.setTextColor(Color.BLACK);
                 binding.all.setTextColor(Color.BLACK);
+                fetchCategory("Finance");
             }
         });
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 fetchData(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                fetchPosts();
             }
         });
 
@@ -335,6 +436,43 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void searchPost() {
+        DatabaseReference reference9 = FirebaseDatabase.getInstance().getReference("Posts");
+        reference9.keepSynced(true);
+        reference9.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                postList.clear();
+                int i = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Post post = snapshot.getValue(Post.class);
+                    if (post.getProblemTxt().toLowerCase().contains(binding.searchEt.getText().toString().trim().toLowerCase())){
+                        postList.add(0,post);
+                        i++;
+                    }
+
+                }
+                postAdapter.notifyDataSetChanged();
+
+                if (binding.radioGroup.getVisibility() == View.GONE){
+                    if (i == 0){
+                        binding.emptyLay.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.emptyLay.setVisibility(View.GONE);
+                    }
+                } else {
+                    binding.emptyLay.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void showLayout() {
         binding.radioGroup.setVisibility(View.VISIBLE);
         binding.ideateBtn.setVisibility(View.VISIBLE);
@@ -346,10 +484,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void animateTransition() {
-        // Calculate the final radius for the reveal animation
         int endRadius = (int) Math.hypot(binding.welcomeBack.getWidth(), binding.welcomeBack.getHeight());
 
-        // Set up the reveal animation
         Animator revealAnimator = ViewAnimationUtils.createCircularReveal(
                 binding.welcomeBack,
                 binding.welcomeBack.getRight(),
@@ -362,20 +498,17 @@ public class MainActivity extends AppCompatActivity {
         revealAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                // Hide the welcomeBack layout
+
                 binding.welcomeBack.setVisibility(View.INVISIBLE);
-                // Show the searchEt layout
+
                 binding.searchEt.setVisibility(View.VISIBLE);
 
-                // Slide in the searchEt with translation animation
                 binding.searchEt.setTranslationX(binding.searchEt.getWidth());
                 binding.searchEt.animate().translationX(0).setDuration(500).start();
 
-                // Update the search button's appearance
                 binding.searchBtn.setImageResource(R.drawable.round_clear_24_white);
                 binding.searchBtn.setBackgroundResource(R.drawable.red_gradient);
 
-                // Update the state
                 isSearchVisible = true;
             }
         });
@@ -384,10 +517,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void animateReverseTransition() {
-        // Calculate the final radius for the reveal animation
         int endRadius = (int) Math.hypot(binding.welcomeBack.getWidth(), binding.welcomeBack.getHeight());
 
-        // Set up the reveal animation
         Animator revealAnimator = ViewAnimationUtils.createCircularReveal(
                 binding.welcomeBack,
                 binding.welcomeBack.getRight(),
@@ -400,20 +531,16 @@ public class MainActivity extends AppCompatActivity {
         revealAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                // Show the welcomeBack layout
                 binding.welcomeBack.setVisibility(View.VISIBLE);
                 binding.searchEt.setText(null);
-                // Hide the searchEt layout
                 binding.searchEt.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                // Update the search button's appearance
                 binding.searchBtn.setImageResource(R.drawable.round_search_24);
                 binding.searchBtn.setBackgroundResource(R.drawable.stroke_bg);
 
-                // Update the state
                 isSearchVisible = false;
             }
         });
@@ -421,6 +548,62 @@ public class MainActivity extends AppCompatActivity {
         revealAnimator.start();
     }
 
+    private void fetchCategory(String finance) {
+        DatabaseReference reference9 = FirebaseDatabase.getInstance().getReference("Posts");
+        reference9.keepSynced(true);
+        reference9.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                postList.clear();
+                int i = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Post post = snapshot.getValue(Post.class);
+                    if (post.getCategory().equals(finance)){
+                        postList.add(0,post);
+                        i++;
+                    }
+
+                }
+
+                if (i == 0){
+                    binding.emptyLay.setVisibility(View.VISIBLE);
+                } else {
+                    binding.emptyLay.setVisibility(View.GONE);
+                }
+                postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void fetchPosts() {
+        DatabaseReference reference9 = FirebaseDatabase.getInstance().getReference("Posts");
+        reference9.keepSynced(true);
+        reference9.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                postList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Post post = snapshot.getValue(Post.class);
+                    postList.add(0,post);
+
+                }
+                postAdapter.notifyDataSetChanged();
+                binding.emptyLay.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     private void fetchData(String uid) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
@@ -436,8 +619,8 @@ public class MainActivity extends AppCompatActivity {
                     String[] nameParts = users.getUsername().split(" ");
                     if (nameParts.length > 0) {
                         String firstName = nameParts[0];
-                        username.setText(firstName);
-                        username1.setText(firstName+",");
+                       username.setText(firstName);
+                       username1.setText(firstName+",");
                     }
 
                     Glide.with(MainActivity.this).asBitmap().placeholder(R.drawable.placeholder).load(users.getProfilePic()).into(profilePic);

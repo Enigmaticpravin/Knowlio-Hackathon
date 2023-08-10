@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/round_bg"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:layout_margin="@dimen/_10sdp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:id="@+id/profilePic"
+            android:src="@drawable/placeholder"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/profilePic"
+            android:orientation="vertical"
+            android:id="@+id/userlay"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/username"
+                android:text="Pravin"
+                android:transitionName="nameTransition"
+                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:transitionName="timeTransition"
+                android:id="@+id/dateTv"
+                android:text="Just Now"
+                android:textSize="@dimen/_9ssp"
+                android:layout_marginTop="-5dp"
+                android:textColor="@color/top_gradient" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Untagged"
+            android:layout_toEndOf="@id/userlay"
+            android:id="@+id/tagIv"
+            android:layout_centerVertical="true"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:textSize="@dimen/_9ssp"
+            android:paddingStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:background="@drawable/round_bg"
+            android:backgroundTint="@color/background"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/round_more_vert_24"
+            android:padding="@dimen/_4sdp"
+            android:id="@+id/moreBtn"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The world has fallen in dust and debris. The devil will rise soon and recalim the throne. The gods will be dead and darkness will reign."
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        android:id="@+id/comment"
+        android:layout_below="@id/toolbar"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:id="@+id/relevent"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_below="@id/comment">
+
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:id="@+id/icon"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/star" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_toEndOf="@id/icon"
+            android:layout_centerVertical="true"
+            android:textColor="#FFC400"
+            android:id="@+id/releventTxt"
+            android:layout_marginStart="@dimen/_5sdp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/top_gradient"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:alpha="0.7"
+        android:layout_below="@id/relevent"
+        android:id="@+id/view"
+        android:layout_marginEnd="@dimen/_10sdp" />
+
+</RelativeLayout>

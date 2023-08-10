@@ -1,10 +1,23 @@
 package com.opion.knowlio.Class;
 
 public class Users {
-
-    String userid, joined, username, profilePic, token, email;
+    String userid, username, profilePic, email, joined, dob, gender, profession, interests, location, token;
 
     public Users() {
+    }
+
+    public Users(String userid, String username, String profilePic, String email, String joined, String dob, String gender, String profession, String interests, String location, String token) {
+        this.userid = userid;
+        this.username = username;
+        this.profilePic = profilePic;
+        this.email = email;
+        this.joined = joined;
+        this.dob = dob;
+        this.gender = gender;
+        this.profession = profession;
+        this.interests = interests;
+        this.location = location;
+        this.token = token;
     }
 
     public String getUserid() {
@@ -13,14 +26,6 @@ public class Users {
 
     public void setUserid(String userid) {
         this.userid = userid;
-    }
-
-    public String getJoined() {
-        return joined;
-    }
-
-    public void setJoined(String joined) {
-        this.joined = joined;
     }
 
     public String getUsername() {
@@ -39,19 +44,67 @@ public class Users {
         this.profilePic = profilePic;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getJoined() {
+        return joined;
+    }
+
+    public void setJoined(String joined) {
+        this.joined = joined;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getInterests() {
+        return interests;
+    }
+
+    public void setInterests(String interests) {
+        this.interests = interests;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

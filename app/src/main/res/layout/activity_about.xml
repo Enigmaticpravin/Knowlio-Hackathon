@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/aboutbg"
+    tools:context=".AboutActivity">
+
+    <ImageView
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:src="@drawable/knowliologowhite"
+        android:id="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_10sdp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:textSize="@dimen/_22ssp"
+        android:textColor="@color/white"
+        android:id="@+id/head"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:textStyle="bold"
+        android:layout_above="@id/subtitle"
+        android:text="ideas beyond \nyour imagination"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:textSize="@dimen/_14ssp"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:id="@+id/subtitle"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_25sdp"
+        android:text="Brainstorm solutions for problems\nthat change many lives"/>
+
+</RelativeLayout>

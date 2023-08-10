@@ -14,4 +14,12 @@
         android:id="@+id/logo"
         android:layout_centerInParent="true"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version 1.0"
+        android:textColor="@color/bottom_gradient"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/logo"/>
+
 </RelativeLayout>

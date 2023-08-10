@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:id="@+id/dialogContainer"
+    android:background="#00FFFFFF"
+    style="@style/Animation.Design.BottomSheetDialog"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="234dp"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/round_bg">
+
+        <LinearLayout
+            android:id="@+id/head"
+            android:layout_width="match_parent"
+            android:background="@drawable/round_bg"
+            android:backgroundTint="@color/background"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cancel_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:background="@drawable/round_bg"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:backgroundTint="@color/bottom_gradient"
+                android:layout_marginVertical="10dp"
+                android:src="@drawable/round_clear_24"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/lato"
+                android:textStyle="bold"
+                android:textColor="@color/bottom_gradient"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="Report Author"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/headquestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Why are you reporting this account?"
+            android:textColor="@color/bottom_gradient"
+            android:textSize="@dimen/_13ssp"
+            android:layout_below="@id/head"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textStyle="bold"
+            android:fontFamily="@font/lato"
+            android:layout_marginTop="@dimen/_5sdp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your report is anonymous, except if you're reporting\nan intellectual property infringement. If someone \nis in immediate danger, call the local emergency \nservices - don't wait."
+            android:textColor="@color/top_gradient"
+            android:layout_below="@id/headquestion"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:id="@+id/info"
+            android:layout_marginStart="@dimen/_10sdp"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_bg"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:backgroundTint="@color/background"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/radioGroup"
+            android:layout_below="@id/info" >
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/bottom_gradient"
+                android:id="@+id/r1"
+                android:text="It's posting content that shouldn't be on Wale"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/bottom_gradient"
+                android:id="@+id/r2"
+                android:text="It's pretending to be someone else"/>
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:buttonTint="@color/bottom_gradient"
+                android:id="@+id/r3"
+                android:layout_height="wrap_content"
+                android:text="It may be under the age of 13"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send Report"
+            android:layout_below="@id/radioGroup"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:id="@+id/sendBtn"
+            android:background="@drawable/red_gradient"
+            android:textColor="@color/white"
+            android:padding="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_10sdp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

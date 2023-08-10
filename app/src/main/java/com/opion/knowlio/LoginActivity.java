@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -37,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     LinearLayout loginBtn;
     private GoogleSignInClient gSignInClient;
     private static final int RC_SIGN_IN = 101;
-//    public static int default_web_client_id = 1900000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +49,9 @@ public class LoginActivity extends AppCompatActivity {
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))// Request the ID token for authentication
-                .requestEmail() // Request the user's email
+                .requestEmail()
                 .build();
 
-        // Create a GoogleSignInClient instance using the options configured above
         gSignInClient = GoogleSignIn.getClient(this,gso);
 
 
@@ -59,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent signInIntent = gSignInClient.getSignInIntent();
-                // Start the Google Sign-In process by launching the intent
                 startActivityForResult(signInIntent,RC_SIGN_IN);
             }
         });
@@ -68,33 +67,32 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Check if the returned result is from Google Sign-In
         if(requestCode == RC_SIGN_IN){
-            // Get the signed-in account from the intent data
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Attempt to get the signed-in Google account
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                // Authenticate with Firebase using the obtained account
+
                 firebaseAuthWithGoogle(account);
             }catch (ApiException e){
-                // Handle Google Sign-In failure by displaying an error message
                 Toast.makeText(this,e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        // Create authentication credentials using the Google ID token
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
 
-        // Use Firebase Authentication to sign in with the obtained credentials
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+        Dialog dialog = new Dialog(LoginActivity.this, R.style.DialogCorner);
+        dialog.setContentView(R.layout.customprogress);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        TextView head = (TextView) dialog.findViewById(R.id.head);
+        head.setText("Please wait while we check your account...");
         FirebaseAuth.getInstance().signInWithCredential(credential)
                 .addOnCompleteListener(this,new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            // If sign-in is successful, get the current user and display a welcome message
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
@@ -104,8 +102,10 @@ public class LoginActivity extends AppCompatActivity {
                                     if (snapshot.exists()){
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         finish();
+                                        dialog.dismiss();
                                     } else {
                                         registerUser(user);
+                                        dialog.dismiss();
                                     }
                                 }
 
@@ -114,11 +114,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                 }
                             });
-
-                            Toast.makeText(LoginActivity.this, "Google Sign-In Successful. Welcome, " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                            // You can navigate to the next activity here
                         }else {
-                            // If sign-in is not successful, display a failure message
+                            dialog.dismiss();
                             Toast.makeText(LoginActivity.this, "Google Sign-In Failed", Toast.LENGTH_SHORT).show();
                         }
                     }

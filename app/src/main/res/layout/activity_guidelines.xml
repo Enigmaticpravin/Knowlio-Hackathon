@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".GuidelinesActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/appLogo"
+            android:transitionName="menu_transition"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/knowliologo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Community Guidelines"
+            android:textSize="@dimen/_18ssp"
+            android:textColor="@color/bottom_gradient"
+            android:layout_below="@+id/appLogo"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/heading"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/poppins"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please read and agree to each\nCommunity Rule to abide by. Violations\ncould result in being banned."
+            android:textAlignment="center"
+            android:layout_below="@id/heading"
+            android:fontFamily="@font/nunito"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_13ssp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/subtitle"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/subtitle"
+            android:padding="@dimen/_10sdp"
+            android:id="@+id/personal"
+            android:background="@drawable/round_bg"
+            android:backgroundTint="@color/white5"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_15sdp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bottom_gradient"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/roboto"
+                    android:text="No personal information"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/personal_data"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginStart="@dimen/_10sdp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/top_gradient"
+                android:text="Don't post sensitive details"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/personal"
+            android:padding="@dimen/_10sdp"
+            android:id="@+id/harassment"
+            android:background="@drawable/round_bg"
+            android:backgroundTint="@color/white5"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bottom_gradient"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/roboto"
+                    android:text="No harassment"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/blame"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginStart="@dimen/_10sdp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/top_gradient"
+                android:text="No bullying, racism, or threats"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/harassment"
+            android:padding="@dimen/_10sdp"
+            android:id="@+id/porn"
+            android:background="@drawable/round_bg"
+            android:backgroundTint="@color/white5"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bottom_gradient"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/roboto"
+                    android:text="No NSFW content"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/no_sex"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginStart="@dimen/_10sdp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/top_gradient"
+                android:text="No porn, or disturbing content, duh"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/porn"
+            android:padding="@dimen/_10sdp"
+            android:id="@+id/positive"
+            android:background="@drawable/round_bg"
+            android:backgroundTint="@color/white5"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bottom_gradient"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/roboto"
+                    android:text="Stay positive"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/positive_review"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginStart="@dimen/_10sdp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/top_gradient"
+                android:text="Good vibes only"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="We take this very seriously..."
+            android:layout_below="@id/positive"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/doneBtn"
+            android:textColor="@color/top_gradient"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/doneBtn"
+            android:layout_height="wrap_content"
+            android:text="Understood"
+            android:padding="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/sharp_round"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_10sdp"/>
+
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>
