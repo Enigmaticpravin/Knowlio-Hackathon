@@ -4,7 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
     tools:context=".LoginActivity">
 
+    <ImageView
+        android:layout_width="@dimen/_200sdp"
+        android:src="@drawable/knowliologo"
+        android:transitionName="imageTransition"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/loginasset"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/logo"
+        android:layout_height="@dimen/_70sdp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="unlocking solutions, \none idea at a time"
+        android:layout_below="@id/logo"
+        android:textAllCaps="false"
+        android:fontFamily="@font/poppins"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/_16ssp"
+        android:id="@+id/subtitle"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join the Collaborative Community"
+        android:layout_below="@id/subtitle"
+        android:textAllCaps="true"
+        android:fontFamily="@font/lato"
+        android:textSize="@dimen/_9sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_centerHorizontal="true"/>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/loginassist"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/_20sdp"
+        android:background="@drawable/bottom_round"
+        android:id="@+id/loginasset"
+        android:layout_height="@dimen/_200sdp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_bg"
+        android:padding="@dimen/_10sdp"
+        android:id="@+id/loginBtn"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_50sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/googlelogo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Started"
+            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textSize="@dimen/_14ssp"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

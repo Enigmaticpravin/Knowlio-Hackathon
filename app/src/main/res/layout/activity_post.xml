@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".PostActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:background="@color/background"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/backBtn"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/round_bg"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/round_arrow_back_ios_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Publish"
+            android:id="@+id/publishBtn"
+            android:textSize="@dimen/_12ssp"
+            android:drawableEnd="@drawable/round_send_24"
+            android:drawablePadding="@dimen/_10sdp"
+            android:drawableTint="@color/white"
+            android:background="@drawable/red_gradient"
+            android:gravity="center_vertical"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:textColor="@color/white"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_centerVertical="true"
+            android:paddingStart="@dimen/_20sdp"
+            android:paddingEnd="@dimen/_20sdp"/>
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@id/toolbar"
+        android:background="@drawable/bottom_round"
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:animateLayoutChanges="true"
+            android:background="@android:color/transparent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/lato"
+                android:gravity="top"
+                android:id="@+id/inputEt"
+                android:inputType="textCapSentences|textMultiLine|textLongMessage"
+                android:background="@android:color/transparent"
+                android:hint="Share your unique idea or problem with a community that values your point"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attach a file"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/white"
+                android:id="@+id/attachBtn"
+                android:layout_alignParentBottom="true"
+                android:drawableStart="@drawable/round_attach_file_24"
+                android:drawablePadding="@dimen/_5sdp"
+                android:background="@drawable/red_gradient"
+                android:backgroundTint="@color/top_gradient"
+                android:drawableTint="@color/white"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingStart="@dimen/_20sdp"
+                android:paddingEnd="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/round_bg"
+                android:animateLayoutChanges="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:id="@+id/fileDetail"
+                android:visibility="gone"
+                android:layout_toStartOf="@id/categoryBtn"
+                android:backgroundTint="@color/top_gradient">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/round_attach_file_24"
+                    android:id="@+id/icon"
+                    android:padding="@dimen/_10sdp"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="@dimen/_130sdp"
+                    android:ellipsize="end"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="dakcojsaocijasicjaskxz.txt"
+                    android:textSize="@dimen/_12ssp"
+                    android:id="@+id/fileName"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:layout_toEndOf="@id/icon"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/round_clear_24"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/attachmentcancel"
+                    android:id="@+id/cancel"
+                    android:padding="@dimen/_10sdp"
+                    app:tint="@color/white" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:id="@+id/categoryBtn"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/circle_bg"
+                android:backgroundTint="@color/top_gradient"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/round_category_24"
+                app:tint="@color/white" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

@@ -1,33 +1,362 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:fitsSystemWindows="true"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/mainhead"
+        android:animateLayoutChanges="true"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/hamburgerBtn"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/round_bg"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/baseline_menu_24" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/stroke_bg"
+            android:padding="@dimen/_10sdp"
+            android:layout_toEndOf="@+id/hamburgerBtn"
+            android:id="@+id/notificationBtn"
+            android:src="@drawable/outline_notifications_active_24"
+            app:tint="@color/primaryRed" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/round_bg"
+            android:gravity="center"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_5sdp">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/bottom_gradient"
+                android:textSize="@dimen/_12ssp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_25sdp"
+                android:id="@+id/profilePic"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@drawable/placeholder" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/welcomeHead"
+        android:animateLayoutChanges="true"
+        android:layout_below="@id/mainhead"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_bg"
+            android:padding="@dimen/_10sdp"
+            android:hint="Search your input here..."
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:inputType="textCapSentences"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:layout_toStartOf="@id/searchBtn"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:id="@+id/searchEt"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/welcomeBack"
+            android:animateLayoutChanges="true"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:id="@+id/helloLay"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_18sdp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins"
+                    android:text="Hello "/>
+
+                <TextView
+                    android:id="@+id/username1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_18sdp"
+                    android:textColor="@color/primaryRed"
+                    android:fontFamily="@font/poppins"
+                    android:text=""/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_18sdp"
+                android:fontFamily="@font/poppins"
+                android:layout_below="@id/helloLay"
+                android:textColor="@color/bottom_gradient"
+                android:layout_marginTop="-10dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="Welcome back!"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/round_search_24"
+            android:background="@drawable/stroke_bg"
+            android:padding="@dimen/_10sdp"
+            android:id="@+id/searchBtn"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_10sdp"/>
+
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/linear3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_below="@id/welcomeHead"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:orientation="horizontal"
+        android:scrollbars="none">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/all"
+                android:layout_width="@dimen/_77sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:background="@drawable/radio_normalround"
+                android:gravity="center"
+                android:text="All"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/technology"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/round_bg"
+                android:gravity="center"
+                android:text="Technology"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/education"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/round_bg"
+                android:gravity="center"
+                android:text="Education"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/politics"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/round_bg"
+                android:gravity="center"
+                android:text="Politics"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/religion"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/round_bg"
+                android:gravity="center"
+                android:text="Religion"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/medication"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/round_bg"
+                android:gravity="center"
+                android:text="Medication"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/agriculture"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/round_bg"
+                android:gravity="center"
+                android:text="Agriculture"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/finance"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/round_bg"
+                android:gravity="center"
+                android:text="Finance"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@id/linear3"
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="match_parent">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"
+                android:id="@+id/emptyLay"
+                android:visibility="gone"
+                android:background="@drawable/round_bg"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center">
 
-    <include layout="@layout/content_main" />
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:src="@drawable/category"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/emptyIcon"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Search not found"
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"
+                    android:layout_below="@id/emptyIcon"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginTop="-20dp"
+                    android:textColor="@color/black"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/postRv"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:nestedScrollingEnabled="true"
+                android:layout_marginEnd="@dimen/_5sdp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Load more items"
+                android:layout_below="@id/postRv"
+                android:textColor="@color/background"
+                android:id="@+id/loadMore"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:paddingEnd="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/background"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/_14ssp"/>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:text="Ideate"
+        android:background="@drawable/red_gradient"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:paddingStart="@dimen/_20sdp"
+        android:drawableTint="@color/white"
+        android:textColor="@color/white"
+        android:id="@+id/ideateBtn"
+        android:paddingEnd="@dimen/_20sdp"
+        android:elevation="@dimen/_5sdp"
+        android:textSize="@dimen/_14ssp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:drawableStart="@drawable/round_edit_24"
+        android:drawablePadding="@dimen/_5sdp"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>
