@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.opion.knowlio.Adapter.ResponseAdapter;
+import com.opion.knowlio.Class.AIFeedback;
 import com.opion.knowlio.Class.Post;
 import com.opion.knowlio.Class.Responses;
 import com.opion.knowlio.Class.Users;
@@ -80,7 +82,7 @@ public class FullPostActivity extends AppCompatActivity {
     String postid, userid, text, image, category, time, userimage, username, aiResponse;
     List<Responses> responsesList = new ArrayList<>();
     private static LocalDateTime after8Hours;
-    String url = "https://api.openai.com/v1/completions";
+    String url = "https://api.openai.com/v1/completions", apiKey;
     private boolean isExpanded = false;
     boolean isClosed = false;
     ResponseAdapter responseAdapter;
@@ -113,6 +115,20 @@ public class FullPostActivity extends AppCompatActivity {
             }
         });
 
+        DatabaseReference refere = FirebaseDatabase.getInstance().getReference("APIKey");
+        refere.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String key = snapshot.getValue(String.class);
+                apiKey = key;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         binding.postImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,6 +136,69 @@ public class FullPostActivity extends AppCompatActivity {
                 intent.putExtra("image", image);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+            }
+        });
+
+        DatabaseReference refernce = FirebaseDatabase.getInstance().getReference("AIFeedback").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(postid);
+        refernce.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                AIFeedback aiFeedback = snapshot.getValue(AIFeedback.class);
+                if (aiFeedback != null && aiFeedback.getPostid().equals(postid)){
+                    binding.ratingBar.setRating(Float.parseFloat(aiFeedback.getRating()));
+                } else {
+                    binding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                        @Override
+                        public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                            binding.ratingBar.setRating(v);
+                            if (v < 3) {
+                                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(FullPostActivity.this, R.style.SheetDialog);
+                                BottomSheetBehavior<View> bottomSheetBehavior;
+                                View bottomsheetview = LayoutInflater.from(FullPostActivity.this).inflate(R.layout.usersuggestion, null);
+                                bottomSheetDialog.setContentView(bottomsheetview);
+                                bottomSheetBehavior = BottomSheetBehavior.from((View) bottomsheetview.getParent());
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                                RelativeLayout linearLayout = bottomsheetview.findViewById(R.id.dialogContainer);
+                                assert linearLayout != null;
+                                linearLayout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
+                                bottomSheetDialog.show();
+                                TextView cancel = bottomsheetview.findViewById(R.id.closeBtn);
+                                EditText inputEt = bottomsheetview.findViewById(R.id.inputEt);
+                                cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if (TextUtils.isEmpty(inputEt.getText().toString().trim())) {
+                                            Toast.makeText(FullPostActivity.this, "Please enter your feedback to submit.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("AIFeedback");
+                                            HashMap<String, Object> hashMap = new HashMap<>();
+                                            hashMap.put("publisherid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                            hashMap.put("feedback", inputEt.getText().toString().trim());
+                                            hashMap.put("postid", postid);
+                                            hashMap.put("rating", "" + v);
+                                            reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(postid).updateChildren(hashMap);
+                                            bottomSheetDialog.dismiss();
+                                            Toast.makeText(FullPostActivity.this, "Feedback sent.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            } else if (v > 3){
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("AIFeedback");
+                                HashMap<String, Object> hashMap = new HashMap<>();
+                                hashMap.put("publisherid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                hashMap.put("feedback", "none");
+                                hashMap.put("postid", postid);
+                                hashMap.put("rating", "" + v);
+                                reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(postid).updateChildren(hashMap);
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -402,6 +481,7 @@ public class FullPostActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(replyEt.getText().toString().trim())){
                     Toast.makeText(FullPostActivity.this, "Response field is empty", Toast.LENGTH_SHORT).show();
                 } else {
+//                    publishPost(bottomSheetDialog, replyEt);
                     getResponseNews("Take this input: "+text+" A user has responded: "+replyEt.getText().toString().trim()+" Analyze if the response by the user is relevant to the input provided by the author. Simply answer in 'Revelant' if it's and 'Irrelevant' if it is not.", bottomSheetDialog, replyEt);
                 }
             }
@@ -458,7 +538,7 @@ public class FullPostActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("Content-Type", "application/json");
-                params.put("Authorization", "Bearer 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");
+                params.put("Authorization", "Bearer "+apiKey);
                 return params;
             }
         };
@@ -483,9 +563,9 @@ public class FullPostActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void publishPost(String responseMsg, Dialog pd, BottomSheetDialog bottomSheetDialog, EditText replyEt) {
-        TextView txt = (TextView) pd.findViewById(R.id.head);
-        txt.setText("Almost Done!");
+    private void publishPost(String aiResponse, Dialog dialog, BottomSheetDialog bottomSheetDialog, EditText replyEt) {
+        TextView head = (TextView) dialog.findViewById(R.id.head);
+        head.setText("Please Wait..");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Responses");
         String key = reference.push().getKey();
         LocalDateTime ldt = LocalDateTime.now(ZoneId.systemDefault());
@@ -500,7 +580,7 @@ public class FullPostActivity extends AppCompatActivity {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("respondid", key);
         hashMap.put("postid", postid);
-        hashMap.put("matching", responseMsg);
+        hashMap.put("matching", aiResponse);
         hashMap.put("publisherid", FirebaseAuth.getInstance().getCurrentUser().getUid());
         hashMap.put("respondTxt", replyEt.getText().toString().trim());
         hashMap.put("time", postTime+", "+postDate);
@@ -508,7 +588,7 @@ public class FullPostActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 bottomSheetDialog.dismiss();
-                pd.dismiss();
+                dialog.dismiss();
                 sendNotification(userid);
             }
         });

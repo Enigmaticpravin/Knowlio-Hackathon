@@ -104,25 +104,67 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(view.getRootView().getContext(), R.style.DialogCorner);
-                dialog.setContentView(R.layout.logoutdialog);
-                dialog.show();
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getRootView().getContext(), R.style.SheetDialog);
+                bottomSheetDialog.setContentView(R.layout.hamburger_bottom);
+                bottomSheetDialog.show();
 
-                TextView cancel = (TextView) dialog.findViewById(R.id.noBtn);
-                TextView join = (TextView) dialog.findViewById(R.id.yesBtn);
-                cancel.setOnClickListener(new View.OnClickListener() {
+                TextView rateActivity = (TextView) bottomSheetDialog.findViewById(R.id.rateBtn);
+                TextView community = (TextView) bottomSheetDialog.findViewById(R.id.closeResponse);
+                TextView about = (TextView) bottomSheetDialog.findViewById(R.id.reportBtn);
+                TextView logout = (TextView) bottomSheetDialog.findViewById(R.id.deleteBtn);
+                TextView closeBtn = (TextView) bottomSheetDialog.findViewById(R.id.closeBtn);
+
+                closeBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dialog.dismiss();
+                        bottomSheetDialog.dismiss();
                     }
                 });
 
-                join.setOnClickListener(new View.OnClickListener() {
+                community.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        finish();
+                        startActivity(new Intent(MainActivity.this, GuidelinesActivity.class));
+                    }
+                });
+
+                about.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, SplashActivity.class));
+                    }
+                });
+                rateActivity.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, RateSortingActivity.class));
+                    }
+                });
+
+                logout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Dialog dialog = new Dialog(view.getRootView().getContext(), R.style.DialogCorner);
+                        dialog.setContentView(R.layout.logoutdialog);
+                        dialog.show();
+
+                        TextView cancel = (TextView) dialog.findViewById(R.id.noBtn);
+                        TextView join = (TextView) dialog.findViewById(R.id.yesBtn);
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        join.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                finish();
+                            }
+                        });
                     }
                 });
             }

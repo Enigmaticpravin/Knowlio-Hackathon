@@ -25,7 +25,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/round_bg"
             android:padding="@dimen/_10sdp"
-            android:src="@drawable/round_logout_24" />
+            android:src="@drawable/baseline_menu_24" />
 
         <ImageView
             android:layout_width="wrap_content"

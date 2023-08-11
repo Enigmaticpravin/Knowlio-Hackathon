@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_bg"
+    android:id="@+id/dialogContainer"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/_5sdp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/round_bg"
+        android:id="@+id/toolbar"
+        android:backgroundTint="@color/background"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/replyTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:drawableStart="@drawable/round_star_border_24"
+            android:drawablePadding="@dimen/_7sdp"
+            android:gravity="center_vertical"
+            android:drawableTint="@color/black"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="User Feedback" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/round_bg"
+            android:drawablePadding="@dimen/_5sdp"
+            android:gravity="center"
+            android:id="@+id/closeBtn"
+            android:paddingStart="@dimen/_6sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:text="Submit"
+            android:textColor="@color/primaryRed" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:id="@+id/inputEt"
+        android:layout_below="@id/toolbar"
+        android:hint="Please extend your precious feedback so that we could improve our service..."
+        android:padding="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp" />
+
+</RelativeLayout>

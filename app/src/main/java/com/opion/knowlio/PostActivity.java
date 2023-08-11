@@ -81,7 +81,7 @@ public class PostActivity extends AppCompatActivity {
     Uri attachUri;
     Vibrator vibrator;
     String fileName = "";
-    String category = "";
+    String category = "", apiKey;
     private static LocalDateTime after8Hours;
     String url = "https://api.openai.com/v1/completions";
     StorageReference storageReference;
@@ -99,6 +99,20 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finishAfterTransition();
+            }
+        });
+
+        DatabaseReference refere = FirebaseDatabase.getInstance().getReference("APIKey");
+        refere.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String key = snapshot.getValue(String.class);
+                apiKey = key;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -201,6 +215,7 @@ public class PostActivity extends AppCompatActivity {
                     if (category.equals("")){
                         shakeImage();
                     } else {
+//                        publishPost();
                         getResponse("Give appropriate analysis for this idea or solution in paragraph: " +binding.inputEt.getText().toString().trim());
                     }
                 }
@@ -248,7 +263,6 @@ public class PostActivity extends AppCompatActivity {
                             String responseMsg = response.getJSONArray("choices").getJSONObject(0).getString("text");
                             getLabelResponse("Evaluate if this input contains explicit content, then print 'explicit', or if the content is provocative, print it 'provoke', or if it is both provocative and explicit, print 'expo' else if it's good to go, simply print 'none', but print results in one word only: "+ binding.inputEt.getText().toString().trim(), head, responseMsg, dialog);
 //                            publishPost(responseMsg.trim(), pd);
-//                            responseTv.setText(responseMsg);
                         } catch (JSONException e) {
                             Toast.makeText(PostActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
                         }
@@ -263,9 +277,8 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-
                 params.put("Content-Type", "application/json");
-                params.put("Authorization", "Bearer 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");
+                params.put("Authorization", "Bearer "+apiKey);
                 return params;
             }
         };
@@ -344,7 +357,7 @@ public class PostActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/json");
-                params.put("Authorization", "Bearer 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");
+                params.put("Authorization", "Bearer "+apiKey);
                 return params;
             }
         };
@@ -441,8 +454,8 @@ public class PostActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void publishPost(String aiResponse, String label, Dialog dialog) {
-        TextView txt = (TextView) dialog.findViewById(R.id.head);
-        txt.setText("Posting the idea now...");
+        TextView head = (TextView) dialog.findViewById(R.id.head);
+        head.setText("Posting the idea now...");
         if (attachUri != null){
             StorageReference refer = storageReference.child("Attachments").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("document"+System.currentTimeMillis());
             refer.putFile(attachUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

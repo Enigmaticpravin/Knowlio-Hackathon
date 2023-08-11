@@ -225,7 +225,7 @@
             android:layout_height="wrap_content"
             android:text="We take this very seriously..."
             android:layout_below="@id/positive"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_centerHorizontal="true"
             android:layout_above="@id/doneBtn"
             android:textColor="@color/top_gradient"/>

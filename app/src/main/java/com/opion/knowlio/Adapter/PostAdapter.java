@@ -85,6 +85,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
 
     private Context mContext;
     private static LocalDateTime after8Hours;
+    String apiKey;
     String url = "https://api.openai.com/v1/completions";
     List<Responses> friendsList = new ArrayList<>();
     private List<Post> postList;
@@ -110,6 +111,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         holder.problemTxt.setText(post.getProblemTxt());
         String formattedTime = TimeAgoConverter.getTimeAgo(post.getTime());
         holder.dateTv.setText(formattedTime + " • "+post.getCategory());
+
+        DatabaseReference refere = FirebaseDatabase.getInstance().getReference("APIKey");
+        refere.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String key = snapshot.getValue(String.class);
+                apiKey = key;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if (post.getFileName() != null && !post.getFileName().equals("")){
             holder.fileDetail.setVisibility(View.VISIBLE);
@@ -391,6 +406,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
                                             if (TextUtils.isEmpty(replyEt.getText().toString().trim())){
                                                 Toast.makeText(mContext, "Response field is empty", Toast.LENGTH_SHORT).show();
                                             } else {
+//                                                publishPost(bottomSheetDialog, replyEt, post.getPostid(), post.getPublisherid());
                                                 getResponseNews("Take this input: "+post.getProblemTxt()+" A user has responded: "+replyEt.getText().toString().trim()+" Analyze if the response by the user is relevant to the input provided by the author. Simply answer in 'Revelant' if it's and 'Irrelevant' if it is not.", bottomSheetDialog, replyEt, post.getPostid(), post.getPublisherid());
                                             }
                                         }
@@ -442,9 +458,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         });
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void publishPost(String responseMsg, Dialog pd, BottomSheetDialog bottomSheetDialog, EditText replyEt, String postid, String publisherid) {
-        TextView txt = (TextView) pd.findViewById(R.id.head);
-        txt.setText("Almost Done!");
+    private void publishPost(String response, Dialog dialog, BottomSheetDialog bottomSheetDialog, EditText replyEt, String postid, String publisherid) {
+        TextView head = (TextView) dialog.findViewById(R.id.head);
+        head.setText("Please Wait...");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Responses");
         String key = reference.push().getKey();
         LocalDateTime ldt = LocalDateTime.now(ZoneId.systemDefault());
@@ -459,7 +475,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("respondid", key);
         hashMap.put("postid", postid);
-        hashMap.put("matching", responseMsg);
+        hashMap.put("matching", response);
         hashMap.put("publisherid", FirebaseAuth.getInstance().getCurrentUser().getUid());
         hashMap.put("respondTxt", replyEt.getText().toString().trim());
         hashMap.put("time", postTime+", "+postDate);
@@ -467,7 +483,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 bottomSheetDialog.dismiss();
-                pd.dismiss();
+                dialog.dismiss();
                 sendNotification(publisherid, postid);
             }
         });
@@ -593,7 +609,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
                 Map<String, String> params = new HashMap<>();
 
                 params.put("Content-Type", "application/json");
-                params.put("Authorization", "Bearer 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");
+                params.put("Authorization", "Bearer "+apiKey);
                 return params;
             }
         };

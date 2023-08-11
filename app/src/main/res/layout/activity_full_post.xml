@@ -199,6 +199,21 @@ ChatGPT. You can achieve this functionality by using a combination of CheckBox w
                         android:layout_alignStart="@id/aitext"
                         android:text="This question is wrong. You need to cross check it and then tell me if that's appropriate."/>
 
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_below="@id/aiResponse"
+                        android:progressTint="#FFA726"
+                        android:id="@+id/ratingBar"
+                        android:scaleX=".6"
+                        android:layout_marginBottom="-25dp"
+                        android:scaleY=".6"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="0dp"
+                        android:indeterminateTint="#FFCA28"
+                        android:layout_alignStart="@id/aitext"/>
+
                 </RelativeLayout>
 
                 <LinearLayout
@@ -216,7 +231,6 @@ ChatGPT. You can achieve this functionality by using a combination of CheckBox w
                         android:layout_width="match_parent"
                         android:id="@+id/friendsCircleRv"
                         android:transitionName="openTransition"
-                        tools:listitem="@layout/circle_friends"
                         android:layout_height="wrap_content" />
 
                     <TextView
