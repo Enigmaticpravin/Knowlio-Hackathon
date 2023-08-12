@@ -1,4 +1,4 @@
-package com.opion.knowlio;
+package com.orpheum.knowlio;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -135,11 +136,24 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isComplete()){
+                    updateToken();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }
             }
         });
 
+    }
+    private void updateToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                String token = task.getResult();
+                DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("token", token);
+                reference3.updateChildren(hashMap);
+            }
+        });
     }
 }

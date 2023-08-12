@@ -4,6 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="msgKey">AAAAzxHEYRI:APA91bEtHjzcOXpKQOkbdfMcJgpZ85h3DMCOlYI86xVhD_vFDJ4zQhsqiXZv9j3xnIwlgm-Jp4yRpBR_6l5tWqcngb3Mk8uXiQVnyfczqYPZUbgQbeBuRd6TFUA9owNTvWP7HKnHQuUY</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

@@ -1,4 +1,4 @@
-package com.opion.knowlio;
+package com.orpheum.knowlio;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +15,7 @@ import android.view.animation.AnimationUtils;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.opion.knowlio.databinding.ActivityAboutBinding;
+import com.orpheum.knowlio.databinding.ActivityAboutBinding;
 
 public class AboutActivity extends AppCompatActivity {
 

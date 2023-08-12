@@ -1,4 +1,4 @@
-package com.opion.knowlio;
+package com.orpheum.knowlio;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +15,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.opion.knowlio.Adapter.PostAdapter;
-import com.opion.knowlio.Adapter.RatingAdapter;
-import com.opion.knowlio.Class.AIFeedback;
-import com.opion.knowlio.Class.Post;
-import com.opion.knowlio.databinding.ActivityRateSortingBinding;
+import com.orpheum.knowlio.Adapter.RatingAdapter;
+import com.orpheum.knowlio.Class.AIFeedback;
+import com.orpheum.knowlio.databinding.ActivityRateSortingBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;

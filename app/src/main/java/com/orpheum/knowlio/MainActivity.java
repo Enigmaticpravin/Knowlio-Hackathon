@@ -1,4 +1,4 @@
-package com.opion.knowlio;
+package com.orpheum.knowlio;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -47,12 +47,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.opion.knowlio.Adapter.NotificationAdapter;
-import com.opion.knowlio.Adapter.PostAdapter;
-import com.opion.knowlio.Class.Notifications;
-import com.opion.knowlio.Class.Post;
-import com.opion.knowlio.Class.Users;
-import com.opion.knowlio.databinding.ActivityMainBinding;
+import com.orpheum.knowlio.Adapter.NotificationAdapter;
+import com.orpheum.knowlio.Adapter.PostAdapter;
+import com.orpheum.knowlio.Class.Notifications;
+import com.orpheum.knowlio.Class.Post;
+import com.orpheum.knowlio.Class.Users;
+import com.orpheum.knowlio.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(MainActivity.this, GuidelinesActivity.class));
+                        bottomSheetDialog.dismiss();
                     }
                 });
 
@@ -132,12 +133,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(MainActivity.this, SplashActivity.class));
+                        bottomSheetDialog.dismiss();
                     }
                 });
                 rateActivity.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(MainActivity.this, RateSortingActivity.class));
+                        bottomSheetDialog.dismiss();
                     }
                 });
 
@@ -154,15 +157,28 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 dialog.dismiss();
+                                bottomSheetDialog.dismiss();
                             }
                         });
 
                         join.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                FirebaseAuth.getInstance().signOut();
-                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                                finish();
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                HashMap<String, Object> hashMap = new HashMap<>();
+                                hashMap.put("token", null);
+                                reference.updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isComplete()){
+                                            FirebaseAuth.getInstance().signOut();
+                                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                            finish();
+                                            bottomSheetDialog.dismiss();
+                                            dialog.dismiss();
+                                        }
+                                    }
+                                });
                             }
                         });
                     }
@@ -465,18 +481,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void updateToken() {
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                String token = task.getResult();
-                DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("token", token);
-                reference3.updateChildren(hashMap);
-            }
-        });
-    }
 
     private void searchPost() {
         DatabaseReference reference9 = FirebaseDatabase.getInstance().getReference("Posts");
@@ -634,7 +638,7 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
                     postList.add(0,post);
-
+                    binding.progressBar.setVisibility(View.GONE);
                 }
                 postAdapter.notifyDataSetChanged();
                 binding.emptyLay.setVisibility(View.GONE);
@@ -655,9 +659,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 if (users != null){
-                    if (users.getToken() == null){
-                        updateToken();
-                    }
                     String[] nameParts = users.getUsername().split(" ");
                     if (nameParts.length > 0) {
                         String firstName = nameParts[0];

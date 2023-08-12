@@ -57,6 +57,7 @@
         android:padding="@dimen/_10sdp"
         android:drawableTint="@color/black"
         android:drawablePadding="@dimen/_10sdp"
+        android:visibility="gone"
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:id="@+id/rateBtn"

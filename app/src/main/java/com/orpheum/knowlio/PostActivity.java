@@ -1,8 +1,4 @@
-package com.opion.knowlio;
-
-import static com.opion.knowlio.R.id.backBtn;
-import static com.opion.knowlio.R.id.categoryBtn;
-import static com.opion.knowlio.R.id.head;
+package com.orpheum.knowlio;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,9 +56,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.opion.knowlio.Class.Users;
-import com.opion.knowlio.Utilities.FCMMessages;
-import com.opion.knowlio.databinding.ActivityPostBinding;
+import com.orpheum.knowlio.databinding.ActivityPostBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;

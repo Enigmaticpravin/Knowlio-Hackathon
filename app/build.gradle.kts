@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.opion.knowlio"
+    namespace = "com.orpheum.knowlio"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.opion.knowlio"
+        applicationId = "com.orpheum.knowlio"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
