@@ -1,7 +1,61 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Knowlio" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Customize your light theme here. -->
+        <item name="popupMenuBackground">@drawable/round_bg</item>
+        <item name="android:popupAnimationStyle">@android:anim/fade_in</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
+
+    <style name="Theme.Knowlio" parent="Base.Theme.Knowlio" />
+
+    <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground"> @android:color/transparent </item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
+    <style name="TopSheet_DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_out_from_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_back_to_top</item>
+    </style>
+
+    <style name="SheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground"> @android:color/transparent </item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+
+    </style>
+
+    <style name="PopupDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground"> @android:color/transparent </item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+
+    </style>
+
+
+    <style name="DialogCorner" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">@dimen/_10sdp</item>
+    </style>
+
+    <style name="SwitchSize">
+        <item name="android:textSize">@dimen/_5ssp</item>
+    </style>
+
 </resources>

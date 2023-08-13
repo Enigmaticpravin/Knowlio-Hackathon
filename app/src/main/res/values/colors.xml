@@ -6,6 +6,9 @@
     <color name="primaryRed">#BF1922</color>
     <color name="secondaryRed">#e32832</color>
     <color name="background">#E4EBF5</color>
+    <color name="colorPrimary">#FF6200EE</color>
+    <color name="colorPrimaryDark">#FF3700B3</color>
+    <color name="colorAccent">#FF03DAC5</color>
 <color name="top_gradient">#404040</color>
 <color name="bottom_gradient">#282828</color>
 <color name="white1">#f5f5fa</color>

@@ -25,6 +25,7 @@
         android:layout_below="@id/logo"
         android:textAllCaps="false"
         android:fontFamily="@font/poppins"
+        android:textColor="@color/bottom_gradient"
         android:textAlignment="center"
         android:textStyle="bold"
         android:textSize="@dimen/_16ssp"
@@ -39,6 +40,7 @@
         android:layout_below="@id/subtitle"
         android:textAllCaps="true"
         android:fontFamily="@font/lato"
+        android:textColor="@color/bottom_gradient"
         android:textSize="@dimen/_9sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_centerHorizontal="true"/>

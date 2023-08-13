@@ -1,5 +1,7 @@
 package com.orpheum.knowlio;
 
+import static android.app.ProgressDialog.show;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
@@ -17,25 +19,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 
-import androidx.core.view.WindowCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,25 +40,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.orpheum.knowlio.Adapter.NotificationAdapter;
 import com.orpheum.knowlio.Adapter.PostAdapter;
 import com.orpheum.knowlio.Class.Notifications;
 import com.orpheum.knowlio.Class.Post;
 import com.orpheum.knowlio.Class.Users;
+import com.orpheum.knowlio.Utilities.NetworkUtils;
 import com.orpheum.knowlio.databinding.ActivityMainBinding;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.ViewAnimationUtils;
-import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -469,13 +456,28 @@ public class MainActivity extends AppCompatActivity {
         binding.ideateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PostActivity.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation((Activity) MainActivity.this, binding.ideateBtn, "go").toBundle();
-                    startActivity(intent, bundle);
+                if ( NetworkUtils.isNetworkAvailable(MainActivity.this)){
+                    Intent intent = new Intent(MainActivity.this, PostActivity.class);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation((Activity) MainActivity.this, binding.ideateBtn, "go").toBundle();
+                        startActivity(intent, bundle);
+                    } else {
+                        startActivity(intent);
+                    }
                 } else {
-                    startActivity(intent);
+                    Dialog dialog = new Dialog(view.getRootView().getContext(), R.style.DialogCorner);
+                    dialog.setContentView(R.layout.nointernet);
+                    dialog.show();
+
+                    TextView cancel = (TextView) dialog.findViewById(R.id.noBtn);
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
                 }
+
             }
         });
 

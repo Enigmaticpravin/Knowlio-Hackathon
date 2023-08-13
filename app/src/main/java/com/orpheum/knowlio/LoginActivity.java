@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.orpheum.knowlio.databinding.ActivityLoginBinding;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -41,11 +43,13 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient gSignInClient;
     private static final int RC_SIGN_IN = 101;
 
+    ActivityLoginBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         loginBtn = findViewById(R.id.loginBtn);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -55,6 +59,13 @@ public class LoginActivity extends AppCompatActivity {
 
         gSignInClient = GoogleSignIn.getClient(this,gso);
 
+        ObjectAnimator logoAnimator = ObjectAnimator.ofFloat(binding.logo, "translationY", -200f, 0f);
+        logoAnimator.setDuration(1000);
+        logoAnimator.start();
+
+        ObjectAnimator loginBtnAnimator = ObjectAnimator.ofFloat(loginBtn, "alpha", 0f, 1f);
+        loginBtnAnimator.setDuration(1500);
+        loginBtnAnimator.start();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

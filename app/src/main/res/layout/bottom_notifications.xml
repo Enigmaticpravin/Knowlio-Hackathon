@@ -76,6 +76,7 @@
                 android:textSize="@dimen/_12sdp"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/bellIcon"/>
 
