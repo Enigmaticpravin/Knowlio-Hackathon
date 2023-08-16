@@ -58,5 +58,11 @@
     <style name="SwitchSize">
         <item name="android:textSize">@dimen/_5ssp</item>
     </style>
+    <style name="Theme.Knowlio.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Knowlio.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Knowlio.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,12 +30,22 @@ public class RateSortingActivity extends AppCompatActivity {
     ActivityRateSortingBinding binding;
     List<AIFeedback> aiFeedbackList = new ArrayList<>();
     RatingAdapter ratingAdapter;
+    private FrameLayout cardContainer;
+
+    private FrameLayout container;
+    private List<View> particles;
+
+    private boolean isFront = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRateSortingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.rateRv.setLayoutManager(new LinearLayoutManager(RateSortingActivity.this));
+
+        cardContainer = findViewById(R.id.cardContainer);
+        particles = new ArrayList<>();
 
         ratingAdapter = new RatingAdapter(RateSortingActivity.this, aiFeedbackList);
         binding.rateRv.setHasFixedSize(true);
@@ -68,4 +79,5 @@ public class RateSortingActivity extends AppCompatActivity {
             }
         });
     }
+
 }

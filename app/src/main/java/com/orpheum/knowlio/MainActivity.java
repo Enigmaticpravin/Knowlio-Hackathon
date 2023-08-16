@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView username,username1;
     PostAdapter postAdapter;
     private boolean isSearchVisible = false;
+    DatabaseReference reference9;
+    ChildEventListener childEventListener;
     NotificationAdapter notificationAdapter;
     List<Notifications> notificationsList = new ArrayList<>();
     CircleImageView profilePic;
@@ -630,27 +633,64 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchPosts() {
-        DatabaseReference reference9 = FirebaseDatabase.getInstance().getReference("Posts");
+        reference9 = FirebaseDatabase.getInstance().getReference("Posts");
         reference9.keepSynced(true);
-        reference9.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
+
+        if (childEventListener != null) {
+            reference9.removeEventListener(childEventListener);
+        }
+        childEventListener = new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                postList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Post post = snapshot.getValue(Post.class);
-                    postList.add(0,post);
-                    binding.progressBar.setVisibility(View.GONE);
-                }
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildKey) {
+                Post post = dataSnapshot.getValue(Post.class);
+                postList.add(0, post);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.progressBar.setVisibility(View.GONE);
+                        binding.emptyLay.setVisibility(View.GONE);
+                        postAdapter.notifyItemInserted(0);
+                    }
+                });
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildKey) {
+                // Handle changes to existing posts if needed
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
                 postAdapter.notifyDataSetChanged();
-                binding.emptyLay.setVisibility(View.GONE);
+                String deletedPostId = dataSnapshot.getKey();
+                for (int i = 0; i < postList.size(); i++) {
+                    if (postList.get(i).getPostid().equals(deletedPostId)) {
+                        postList.remove(i);
+                        int finalI = i;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                postAdapter.notifyItemRemoved(finalI);
+                            }
+                        });
+                        break;
+                    }
+                }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildKey) {
+                // Handle changes in the order of posts if needed
             }
-        });
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors if needed
+            }
+        };
+
+        reference9.addChildEventListener(childEventListener);
+
     }
 
     private void fetchData(String uid) {
@@ -677,5 +717,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Remove the child event listener to prevent memory leaks
+        if (reference9 != null && childEventListener != null) {
+            reference9.removeEventListener(childEventListener);
+        }
     }
 }

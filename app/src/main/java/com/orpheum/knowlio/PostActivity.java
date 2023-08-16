@@ -233,7 +233,7 @@ public class PostActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         TextView head = (TextView) dialog.findViewById(R.id.head);
-        head.setText("Generating AI-generated Response...");
+        head.setText("Please wait...");
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         JSONObject jsonObject = new JSONObject();
         try {
@@ -255,8 +255,7 @@ public class PostActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             String responseMsg = response.getJSONArray("choices").getJSONObject(0).getString("text");
-                            getLabelResponse("Evaluate if this input contains explicit content, then print 'explicit', or if the content is provocative, print it 'provoke', or if it is both provocative and explicit, print 'expo' else if it's good to go, simply print 'none', but print results in one word only: "+ binding.inputEt.getText().toString().trim(), head, responseMsg, dialog);
-//                            publishPost(responseMsg.trim(), pd);
+                            getLabelResponse("Strictly evaluate if this input contains even slightest of explicit content or words, then print 'explicit', or if the content is slightest of provocative, print it 'provoke', or if it is both provocative and explicit, print 'expo' else if it's good to go, simply print 'none', but print results in one word only: "+ binding.inputEt.getText().toString().trim(), head, responseMsg, dialog);
                         } catch (JSONException e) {
                             Toast.makeText(PostActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
                         }
@@ -322,16 +321,46 @@ public class PostActivity extends AppCompatActivity {
                             String responseMsg = response.getJSONArray("choices").getJSONObject(0).getString("text");
                             if (responseMsg.trim().equals("explicit")){
                                 sendExplicitNotification();
-                                dialog.dismiss();
-                                finishAfterTransition();
+                                Dialog dialog = new Dialog(PostActivity.this, R.style.DialogCorner);
+                                dialog.setContentView(R.layout.warningdialog);
+                                dialog.setCanceledOnTouchOutside(false);
+                                dialog.show();
+                                TextView head = (TextView) dialog.findViewById(R.id.yesBtn);
+                                head.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialog.dismiss();
+                                        finishAfterTransition();
+                                    }
+                                });
                             } else if (responseMsg.trim().equals("expo")){
                                 sendExpoNotification();
-                                dialog.dismiss();
-                                finishAfterTransition();
+                                Dialog dialog = new Dialog(PostActivity.this, R.style.DialogCorner);
+                                dialog.setContentView(R.layout.warningdialog);
+                                dialog.setCanceledOnTouchOutside(false);
+                                dialog.show();
+                                TextView head = (TextView) dialog.findViewById(R.id.yesBtn);
+                                head.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialog.dismiss();
+                                        finishAfterTransition();
+                                    }
+                                });
                             } else if (responseMsg.trim().equals("provoke")){
                                 sendProvokeNotif();
-                                dialog.dismiss();
-                                finishAfterTransition();
+                                Dialog dialog = new Dialog(PostActivity.this, R.style.DialogCorner);
+                                dialog.setContentView(R.layout.warningdialog);
+                                dialog.setCanceledOnTouchOutside(false);
+                                dialog.show();
+                                TextView head = (TextView) dialog.findViewById(R.id.yesBtn);
+                                head.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialog.dismiss();
+                                        finishAfterTransition();
+                                    }
+                                });
                             } else {
                                 publishPost(respone.trim(), responseMsg.trim(), dialog);
                             }

@@ -14,7 +14,7 @@
         android:transitionName="imageTransition"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/loginasset"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:id="@+id/logo"
         android:layout_height="@dimen/_70sdp"/>
 

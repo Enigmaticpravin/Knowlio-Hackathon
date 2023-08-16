@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_bg"
+    android:layout_gravity="center">
+
+    <RelativeLayout
+        android:id="@+id/iconlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/deleteicon"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:src="@drawable/monsterwarning"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iconlay"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:text="Warning!"
+        android:textSize="@dimen/_15ssp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/primaryRed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_below="@id/head"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:id="@+id/subtitle"
+        android:textAlignment="center"
+        android:text="The content you posted was inappropriate and has been removed. Please avoid posting such material in the future. Thank you for your cooperation."
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/subtitle"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_10sdp">
+
+
+        <TextView
+            android:id="@+id/yesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Understood"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:backgroundTint="#F44336"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="@dimen/_14ssp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingStart="@dimen/_30sdp"
+            android:paddingEnd="@dimen/_30sdp"
+            android:background="@drawable/round_bg"
+            android:layout_marginEnd="@dimen/_15sdp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

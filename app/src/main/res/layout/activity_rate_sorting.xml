@@ -40,10 +40,17 @@
         android:layout_width="match_parent"
         android:layout_below="@id/mainhead"
         android:layout_marginStart="@dimen/_10sdp"
+        android:visibility="invisible"
         android:layout_marginEnd="@dimen/_10sdp"
         android:background="@drawable/round_bg"
         android:layout_marginBottom="@dimen/_10sdp"
         android:id="@+id/rateRv"
         android:layout_height="match_parent"/>
 
+    <FrameLayout
+        android:id="@+id/cardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/mainhead"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>
