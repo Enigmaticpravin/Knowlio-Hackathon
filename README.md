@@ -4,10 +4,10 @@ Dive into a world where ideas ignite, problems unravel, and innovation thrives. 
 
 Knowlio is a hub for ideas and problem-solving techinques, which is fully moderated by Artificial Intelligence.
 ## Features
-🧠. Spark Creativity: Share your ideas, from the wild to the wondrous. AI crafts crisp summaries that capture the essence.
-🌟. Practical Magic: Connect with field wizards who unravel real-world solutions to fuel your progress.
-🤝. Community Catalyst: Forge connections, learn from diverse minds, and sculpt the future together.
-🛡️. Safe Haven: Our AI sentinel guards against negativity, ensuring respectful and insightful discussions.
+1. Spark Creativity: Share your ideas, from the wild to the wondrous. AI crafts crisp summaries that capture the essence.
+2. Practical Magic: Connect with field wizards who unravel real-world solutions to fuel your progress.
+3. Community Catalyst: Forge connections, learn from diverse minds, and sculpt the future together.
+4. Safe Haven: Our AI sentinel guards against negativity, ensuring respectful and insightful discussions.
 Elevate your ideas, enhance your skills, and enrich your journey. Join Knowlio's galaxy of dreamers and doers today! 🚀🌌
 
 This repo contains the official source code for [Knowlio App for Android](https://play.google.com/store/apps/details?id=com.orpheum.knowlio).
