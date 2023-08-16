@@ -12,6 +12,8 @@ Elevate your ideas, enhance your skills, and enrich your journey. Join Knowlio's
 
 This repo contains the official source code for [Knowlio App for Android](https://play.google.com/store/apps/details?id=com.orpheum.knowlio).
 
+<a href='https://play.google.com/store/apps/details?id=com.orpheum.knowlio&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='80px'/></a>
+
 ## Strictly for Educational Purpose
 
 I welcome all coding enthusiasts to use the source code of Knowlio to understand UI/UX, backend, and AI integration through practical approach.
@@ -29,3 +31,8 @@ You will require Android Studio 3.4, Android NDK rev. 20 and Android SDK 8.1
 4.  Open the project in the Studio (note that it should be opened, NOT imported).
 5. You are ready to compile Knowlio.
 
+## License
+
+Copyright 2022-2023 Opion
+
+Google Play and the Google Play logo are trademarks of Google LLC.
