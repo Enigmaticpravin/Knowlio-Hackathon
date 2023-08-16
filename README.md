@@ -1,4 +1,4 @@
-!![1692193946977](https://github.com/Enigmaticpravin/Knowlio-Hackathon/assets/87265808/73a03454-fd09-4193-ad71-3384889c8c10)
+![1692193946977](https://github.com/Enigmaticpravin/Knowlio-Hackathon/assets/87265808/73a03454-fd09-4193-ad71-3384889c8c10)
 # Knowlio
 Dive into a world where ideas ignite, problems unravel, and innovation thrives. Knowlio is your bridge to brilliance, combining AI's theoretical insights with the practical genius of experts. 🚀
 ## Knowlio for Android
