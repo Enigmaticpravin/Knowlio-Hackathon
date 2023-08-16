@@ -2,6 +2,7 @@
 Dive into a world where ideas ignite, problems unravel, and innovation thrives. Knowlio is your bridge to brilliance, combining AI's theoretical insights with the practical genius of experts. 🚀
 ## Knowlio for Android
 ![knowlio logo splash screen - Copy](https://github.com/Enigmaticpravin/Knowlio-Hackathon/assets/87265808/51868d1f-2586-460f-b146-97b81e3d8711)
+
 Knowlio is a hub for ideas and problem-solving techinques, which is fully moderated by Artificial Intelligence.
 ## Features
 1. Spark Creativity: Share your ideas, from the wild to the wondrous. AI crafts crisp summaries that capture the essence.
